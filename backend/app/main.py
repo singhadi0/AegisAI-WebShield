@@ -4,7 +4,7 @@ import os
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
-from app.api import auth_router, honeypot_router
+from app.api import alerts_router, auth_router, honeypot_router, metrics_router
 from app.middleware import register_security_middleware
 
 
@@ -36,6 +36,8 @@ def create_app() -> FastAPI:
 
     app.include_router(auth_router)
     app.include_router(honeypot_router, prefix="/api/honeypot")
+    app.include_router(alerts_router, prefix="/api/alerts")
+    app.include_router(metrics_router, prefix="/api/metrics")
 
     return app
 

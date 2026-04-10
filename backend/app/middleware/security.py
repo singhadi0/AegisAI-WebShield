@@ -52,7 +52,12 @@ def register_security_middleware(app: FastAPI) -> None:
                 except json.JSONDecodeError:
                     payload = {"_raw": body_str}
 
-            honeypot_event = {"ip": ip, "timestamp": timestamp, "payload": payload}
+            honeypot_event = {
+                "ip": ip,
+                "timestamp": timestamp,
+                "payload": payload,
+                "attack_type": details.get("type"),
+            }
             response = handle_honeypot(honeypot_event)
             return JSONResponse(status_code=200, content=response)
 
