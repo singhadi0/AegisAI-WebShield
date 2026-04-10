@@ -1,4 +1,4 @@
-from pydantic import BaseSettings
+from pydantic_settings import BaseSettings
 
 
 class Settings(BaseSettings):
@@ -6,9 +6,7 @@ class Settings(BaseSettings):
     debug: bool = True
     secret_key: str = "supersecretkey"
 
-    class Config:
-        env_file = ".env"
-        env_file_encoding = "utf-8"
+    model_config = {"env_file": ".env", "env_file_encoding": "utf-8"}
 
 
 settings = Settings()
