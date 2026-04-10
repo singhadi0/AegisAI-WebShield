@@ -4,6 +4,8 @@ import os
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
+from app.api import auth_router
+
 
 def _configure_logging() -> None:
     logging.basicConfig(
@@ -28,6 +30,8 @@ def create_app() -> FastAPI:
     @app.get("/", tags=["root"])
     def root() -> dict[str, str]:
         return {"message": "AegisAI WebShield Running"}
+
+    app.include_router(auth_router)
 
     return app
 
