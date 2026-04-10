@@ -5,6 +5,7 @@ from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
 from app.api import auth_router, honeypot_router
+from app.middleware import register_security_middleware
 
 
 def _configure_logging() -> None:
@@ -26,6 +27,8 @@ def create_app() -> FastAPI:
         allow_methods=["*"],
         allow_headers=["*"],
     )
+
+    register_security_middleware(app)
 
     @app.get("/", tags=["root"])
     def root() -> dict[str, str]:
