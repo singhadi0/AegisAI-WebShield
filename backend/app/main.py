@@ -4,7 +4,7 @@ import os
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
-from app.api import auth_router
+from app.api import auth_router, honeypot_router
 
 
 def _configure_logging() -> None:
@@ -32,6 +32,7 @@ def create_app() -> FastAPI:
         return {"message": "AegisAI WebShield Running"}
 
     app.include_router(auth_router)
+    app.include_router(honeypot_router, prefix="/api/honeypot")
 
     return app
 
